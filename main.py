@@ -32,23 +32,13 @@ def start(update, _):
 
 
 def button(update, _):
-    # reply_keyboard = [['/start']]
+    # reply_keyboard = [['Go back']]
     query = update.callback_query
     variant = query.data
-
-    # `CallbackQueries` требует ответа, даже если
-    # уведомление для пользователя не требуется, в противном
-    #  случае у некоторых клиентов могут возникнуть проблемы.
-    # смотри https://core.telegram.org/bots/api#callbackquery.
     query.answer()
-    # редактируем сообщение, тем самым кнопки
-    # в чате заменятся на этот ответ.
     query.edit_message_text(text=f"{INFORMATION[variant]}", parse_mode=ParseMode.MARKDOWN)
     update.effective_message.reply_text('*Натисніть сюди --> `/menu` щоб перейти до головного меню*', parse_mode=ParseMode.MARKDOWN)
-
-
-# def help_command(update, _):
-#     update.message.reply_text("Натисніть сюди --> `/menu` щоб перейти до головного меню")
+    update.effective_message.reply_text()
 
 
 if __name__ == '__main__':
