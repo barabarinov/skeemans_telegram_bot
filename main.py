@@ -12,7 +12,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def menu(update, _):
+def start(update, _):
     keyboard = [
         [
             InlineKeyboardButton('Дивитись ONLINE', callback_data='Online'),
@@ -44,7 +44,7 @@ def button(update, _):
     # редактируем сообщение, тем самым кнопки
     # в чате заменятся на этот ответ.
     query.edit_message_text(text=f"{INFORMATION[variant]}")
-    update.effective_message.reply_text('Використовуйте `/start` для показу головного меню')
+    update.effective_message.reply_text('Використовуйте `/menu` для показу головного меню')
 
 
 def help_command(update, _):
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     updater = Updater(token=os.getenv('TOKEN'), use_context=True)
     dispatcher = updater.dispatcher
 
-    updater.dispatcher.add_handler(CommandHandler('menu', menu))
+    updater.dispatcher.add_handler(CommandHandler('menu', start))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_handler(CommandHandler('help', help_command))
 
