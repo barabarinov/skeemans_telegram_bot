@@ -1,7 +1,7 @@
 import logging
 import os
 from dotenv import load_dotenv
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
 from app.information import INFORMATION
@@ -43,12 +43,12 @@ def button(update, _):
     query.answer()
     # редактируем сообщение, тем самым кнопки
     # в чате заменятся на этот ответ.
-    query.edit_message_text(text=f"{INFORMATION[variant]}")
-    update.effective_message.reply_text('Використовуйте `/menu` для показу головного меню')
+    query.edit_message_text(text=f"{INFORMATION[variant]}", parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text('*Натисніть сюди --> `/menu` щоб перейти до головного меню*', parse_mode=ParseMode.MARKDOWN)
 
 
-def help_command(update, _):
-    update.message.reply_text("Використовуйте `/menu` для показу головного меню")
+# def help_command(update, _):
+#     update.message.reply_text("Натисніть сюди --> `/menu` щоб перейти до головного меню")
 
 
 if __name__ == '__main__':
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
     updater.dispatcher.add_handler(CommandHandler('menu', start))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    updater.dispatcher.add_handler(CommandHandler('help', help_command))
+    # updater.dispatcher.add_handler(CommandHandler('help', help_command))
 
     updater.start_polling()
     updater.idle()
