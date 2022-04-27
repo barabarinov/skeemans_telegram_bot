@@ -37,7 +37,6 @@ def church_in_wartime(update, callback: CallbackContext):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text(text, reply_markup=reply_markup)
-    vid = '\nhttps://www.youtube.com/watch?v=5rNA2B80mE8'
 
 
 def donate(update, callback: CallbackContext):
