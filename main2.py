@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import Updater, CommandHandler, CallbackContext, ConversationHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ParseMode
+from app.information import text, thank_you
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -21,26 +22,36 @@ def online(update, callback: CallbackContext):
 
 
 def church_in_wartime(update, callback: CallbackContext):
-    text = '*ЗА КОЖНОЮ ДОБРОЮ СПРАВОЮ СТОЯТЬ ЛЮДИ!*\n🙏🏼🇺🇦\n' \
-           'Неможливо одну команду відокремити від іншої, ми все робимо разом, і це справжня сім\'я СКІМЕНС. ' \
-           'З перших днів війни наша місія у Києві, Рівному, Закарпатті, Польші, не припиняла своєї роботи. ' \
-           'Тому що там, де біль, де потреба, де смерть - там точно місце церкви.У зоні нашої уваги жінки з дітьми, ' \
-           'люди похилого віку та люди з інвалідністю. Ми розвозимо продукти харчування та предмети першої необхідності. ' \
-           'Надає притулок тим, хто чекає на евакуацію або вже евакуйований з-під обстрілів. Ми забезпечуємо медикаментами ' \
-           'та обладнанням лікарні та госпіталі. Наша місія в Польщі купує та доставляє одяг та взуття, а також засоби захисту для наших захісників. ' \
-           'Капеланська робота ведеться як у Києві, так і в області. І головне, ми ніколи не забуваємо про основне призначення церкви – нести *Євангеліє*.'
-
     keyboard = [
         [
-            InlineKeyboardButton('Donate', callback_data=donate),
+            InlineKeyboardButton('/Donate', callback_data='Donate'),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text(text, reply_markup=reply_markup)
+    update.message.reply_photo(caption=text, photo=open('pics/web_war.png', 'rb'), reply_markup=reply_markup, parse_mode=ParseMode.MARKDOWN)
+    update.message.reply_text('\n_https://www.youtube.com/watch?v=5rNA2B80mE8_', parse_mode=ParseMode.MARKDOWN)
 
 
 def donate(update, callback: CallbackContext):
-    update.message.reply_text('Donate is working!!!')
+    keyboard = [
+        [
+            InlineKeyboardButton('LiqPay', callback_data='Liqpay'),
+        ],
+        [
+            InlineKeyboardButton('Donate Crypto', callback_data='Crypto'),
+        ],
+    ]
+    reply_keyboard = InlineKeyboardMarkup(keyboard)
+    update.message.reply_photo()
+    update.message.reply_text('Donate is working!!!', reply_markup=reply_keyboard)
+
+
+def liqpay(update, context: CallbackContext):
+    update.message.reply_text(thank_you + 'https://www.liqpay.ua/uk/checkout/card/checkout_1651162913093739_1222530_94exQbD8AwFApTtLg19X')
+
+
+def crypto(update, context: CallbackContext):
+    update.message.reply_text('https://skeemans.com/donate_crypto')
 
 
 def pray_request(update, callback: CallbackContext):
@@ -78,6 +89,7 @@ if __name__ == '__main__':
     updater.dispatcher.add_handler(CommandHandler('Church_in_wartime', church_in_wartime))
     updater.dispatcher.add_handler(CommandHandler('Pray_requests', pray_request))
     updater.dispatcher.add_handler(CommandHandler('Service_schedule', service_schedule))
+    updater.dispatcher.add_handler(CommandHandler('Donate', donate))
 
     updater.start_polling()
     updater.idle()
