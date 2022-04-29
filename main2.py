@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def start(update, context):
     update.message.reply_text('*Привіт! Я SKEEMANS CHURCH BOT!*✋🏼🙏🏼',
-                              reply_markup=markup, parse_mode=ParseMode.MARKDOWN)
+                              reply_markup=reply_markup_general, parse_mode=ParseMode.MARKDOWN)
 
 
 def online(update, callback: CallbackContext):
@@ -24,49 +24,30 @@ def online(update, callback: CallbackContext):
 def church_in_wartime(update, context):
     keyboard = [
         [
-            InlineKeyboardButton('Donate/Допомогти', callback_data='Donate'),
+            InlineKeyboardButton('Donate/Допомогти', callback_data='Donate/Допомогти'),
         ],
     ]
     reply_keyboard = InlineKeyboardMarkup(keyboard)
 
-    query = update.callback_query
-    query.answer()
-    query.edit_message_text(
-        text=text + '\n_https://www.youtube.com/watch?v=5rNA2B80mE8_', parse_mode=ParseMode.MARKDOWN)
-    query.edit_message_media(media=open('pics/web_war.png', 'rb'), reply_markup=reply_keyboard)
-
-    # update.message.reply_photo(caption=text, photo=open('pics/web_war.png', 'rb'), reply_markup=reply_keyboard,
-    #                            parse_mode=ParseMode.MARKDOWN)
-    # update.message.reply_text('\n_https://www.youtube.com/watch?v=5rNA2B80mE8_', parse_mode=ParseMode.MARKDOWN)
+    update.message.reply_photo(caption=text, photo=open('pics/web_war.png', 'rb'), reply_markup=reply_keyboard,
+                               parse_mode=ParseMode.MARKDOWN)
+    update.message.reply_text('\n_https://www.youtube.com/watch?v=5rNA2B80mE8_', parse_mode=ParseMode.MARKDOWN)
 
 
 def donate(update, context):
     keyboard = [[InlineKeyboardButton('LiqPay', callback_data='Liqpay')],
-                [InlineKeyboardButton('Donate Crypto', callback_data='Crypto')]]
+                [InlineKeyboardButton('Donate Crypto', callback_data='Donate Crypto')]]
 
     reply_keyboard = InlineKeyboardMarkup(keyboard)
-    query = update.callback_query
-    query.answer()
-    query.edit_message_text(
-        text=thank_you(),
-        reply_markup=reply_keyboard)
-    # update.message.reply_text('Підтримати служіння церкви СКІМЕНС', reply_markup=reply_keyboard)
+    update.message.reply_text('Підтримати служіння церкви СКІМЕНС', reply_markup=reply_keyboard)
 
 
 def liqpay(update, context):
-    query = update.callback_query
-    query.answer()
-    query.edit_message_text(
-        text='https://www.liqpay.ua/uk/checkout/card/checkout_1651162913093739_1222530_94exQbD8AwFApTtLg19X')
-    # update.message.reply_text('https://www.liqpay.ua/uk/checkout/card/checkout_1651162913093739_1222530_94exQbD8AwFApTtLg19X')
+    update.message.reply_text('https://www.liqpay.ua/uk/checkout/card/checkout_1651162913093739_1222530_94exQbD8AwFApTtLg19X')
 
 
 def crypto(update, context):
-    query = update.callback_query
-    query.answer()
-    query.message_text(
-        text='https://skeemans.com/donate_crypto')
-    # update.message.reply_text('https://skeemans.com/donate_crypto')
+    update.message.reply_text('https://skeemans.com/donate_crypto')
 
 
 def pray_request(update, context):
@@ -96,17 +77,16 @@ if __name__ == '__main__':
                       ['Залишити молитовну потребу'],
                       ['Розклад служінь']]
 
-    # reply_keyboard = [keyboard for keyboard in reply_keyboard]
-    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
+    reply_markup_general = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
 
-    updater.dispatcher.add_handler(CommandHandler('start', start))
-    updater.dispatcher.add_handler(MessageHandler(Filters.regex('^Дивитись ONLINE$') & ~Filters.command, online))
-    updater.dispatcher.add_handler(MessageHandler(Filters.regex('^Церква під час війни$') & ~Filters.command, church_in_wartime))
-    updater.dispatcher.add_handler(MessageHandler(Filters.regex('^Залишити молитовну потребу$') & ~Filters.command, pray_request))
-    updater.dispatcher.add_handler(MessageHandler(Filters.regex('^Розклад служінь$') & ~Filters.command, service_schedule))
-    updater.dispatcher.add_handler(CallbackQueryHandler(donate, pattern='Donate'))
-    updater.dispatcher.add_handler(CallbackQueryHandler(liqpay, pattern='Liqpay'))
-    updater.dispatcher.add_handler(CallbackQueryHandler(crypto, pattern='Crypto'))
+    dispatcher.add_handler(CommandHandler('start', start))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Дивитись ONLINE$') & ~Filters.command, online))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Церква під час війни$') & ~Filters.command, church_in_wartime))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Залишити молитовну потребу$') & ~Filters.command, pray_request))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Розклад служінь$') & ~Filters.command, service_schedule))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Donate/Допомогти$') & ~Filters.command, donate))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Liqpay$') & ~Filters.command, liqpay))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Donate Crypto$') & ~Filters.command, crypto))
 
     updater.start_polling()
     updater.idle()
