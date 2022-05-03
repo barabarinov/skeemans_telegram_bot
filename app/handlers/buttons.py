@@ -12,6 +12,7 @@ ONLINE_LINK = 'https://www.youtube.com/SKEEMANSCHURCH/live'
 reply_keyboard_menu = [['Служіння в Бучі ❤️', 'Церква під час війни 🇺🇦'],
                        ['Підтримати (Donate) ✊🏼', 'Молитовна потреба 🙏🏻'],
                        ['Недільне служіння 💒', 'Cлужіння LIVE 🔴']]
+
 reply_keyboard_main = ReplyKeyboardMarkup(reply_keyboard_menu, one_time_keyboard=False)
 
 reply_keboard_pray = [[InlineKeyboardButton('Написати 🔗', url=PRAY_LINK)]]

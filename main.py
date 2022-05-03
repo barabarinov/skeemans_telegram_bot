@@ -52,6 +52,4 @@ if __name__ == '__main__':
                         url_path=TOKEN,
                         webhook_url=f'https://skeemans-telegram-bot.herokuapp.com/{TOKEN}'
     )
-
-    # updater.start_polling()
     updater.idle()

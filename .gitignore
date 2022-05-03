@@ -5,5 +5,4 @@ venv/
 bin/*
 include/*
 lib/*
-pics/*
 pyvenv.cfg
