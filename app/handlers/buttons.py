@@ -9,7 +9,7 @@ PRAY_LINK = 'https://skeemans.com/pray'
 ONLINE_LINK = 'https://www.youtube.com/SKEEMANSCHURCH/live'
 
 # buttons
-reply_keyboard_menu = [['Служіння в Бучі ❤️', 'Церква під час війни 🇺🇦'],
+reply_keyboard_menu = [['Служіння в Бучі ️🔰', 'Церква під час війни 🇺🇦'],
                        ['Підтримати (Donate) ✊🏼', 'Молитовна потреба 🙏🏻'],
                        ['Недільне служіння 💒', 'Cлужіння LIVE 🔴']]
 

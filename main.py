@@ -29,6 +29,9 @@ logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
     load_dotenv()
+
+    IS_HEROKU = os.getenv('IS_HEROKU', 'true').lower() == 'true'
+
     PORT = int(os.environ.get('PORT', 5000))
     TOKEN = os.getenv('TOKEN')
 
@@ -36,7 +39,7 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler('start', start))
-    dispatcher.add_handler(MessageHandler(Filters.regex('^Служіння в Бучі ❤️$') & ~Filters.command, get_help))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Служіння в Бучі 🔰️$') & ~Filters.command, get_help))
     dispatcher.add_handler(MessageHandler(Filters.regex('^Cлужіння LIVE 🔴$') & ~Filters.command, online))
     dispatcher.add_handler(
         MessageHandler(Filters.regex('^Церква під час війни 🇺🇦$') & ~Filters.command, church_in_wartime)
@@ -46,10 +49,13 @@ if __name__ == '__main__':
     dispatcher.add_handler(MessageHandler(Filters.regex('^Підтримати \(Donate\) ✊🏼$') & ~Filters.command, main_donate))
     dispatcher.add_handler(CallbackQueryHandler(swift, pattern=SWIFT))
 
-    updater.start_webhook(
-                        listen="0.0.0.0",
-                        port=PORT,
-                        url_path=TOKEN,
-                        webhook_url=f'https://skeemans-telegram-bot.herokuapp.com/{TOKEN}'
-    )
+    if IS_HEROKU:
+        updater.start_webhook(
+                            listen="0.0.0.0",
+                            port=PORT,
+                            url_path=TOKEN,
+                            webhook_url=f'https://skeemans-telegram-bot.herokuapp.com/{TOKEN}'
+        )
+    else:
+        updater.start_polling()
     updater.idle()
