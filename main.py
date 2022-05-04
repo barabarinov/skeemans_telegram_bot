@@ -39,7 +39,7 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler('start', start))
-    dispatcher.add_handler(MessageHandler(Filters.regex('^Служіння в Бучі 🔰️$') & ~Filters.command, get_help))
+    dispatcher.add_handler(MessageHandler(Filters.regex('^Служіння в Бучі 🔰$') & ~Filters.command, get_help))
     dispatcher.add_handler(MessageHandler(Filters.regex('^Cлужіння LIVE 🔴$') & ~Filters.command, online))
     dispatcher.add_handler(
         MessageHandler(Filters.regex('^Церква під час війни 🇺🇦$') & ~Filters.command, church_in_wartime)
