@@ -36,7 +36,11 @@ text_bucha = [
     '*м\.Буча, Пушкінська 12а*'
 ]
 
-text_live = 'Подивитись трансляцію можна кожної неділі о __16:00__ у Telegram каналі *@skeemans* або на каналі церкви в *YouTube*'
+text_live = (
+    'Подивитись трансляцію можна кожної неділі о __13:00__ у Telegram каналі *@skeemans* або на каналі церкви в '
+    f'{"[YouTube](https://www.youtube.com/SKEEMANSCHURCH/live)"}'
+)
+
 
 text_bank_details = [
     '*_Реквізити підприємства/Company details_*',

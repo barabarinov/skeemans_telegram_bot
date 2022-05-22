@@ -36,8 +36,9 @@ def get_help(update: Update, context: CallbackContext):
 def online(update: Update, context: CallbackContext):
     update.message.reply_text(
         text_live,
+        disable_web_page_preview=True,
         reply_markup=reply_keboard_onlinelink,
-        parse_mode=ParseMode.MARKDOWN_V2
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
 
 
@@ -52,7 +53,9 @@ def church_in_wartime(update: Update, context: CallbackContext):
 
 def pray_request(update: Update, context: CallbackContext):
     update.message.reply_text(
-        text=f'{"[ТУТ](https://skeemans.com/pray)"} ви можете залишити молитовну потребу, і церква буде молитися за неї разом із вами 🙏🏼',
+        text=(f'{"[ТУТ](https://skeemans.com/pray)"} '
+              f'ви можете залишити молитовну потребу, '
+              f'і церква буде молитися за неї разом із вами 🙏🏼'),
         disable_web_page_preview=True,
         reply_markup=reply_keboard_praylink,
         parse_mode=ParseMode.MARKDOWN
@@ -62,7 +65,7 @@ def pray_request(update: Update, context: CallbackContext):
 def service_schedule(update: Update, context: CallbackContext):
     update.message.reply_text(
                     '\n'.join(['_13:00 \- зібрання в церкві_',
-                              f'_16:00 \- {"[онлайн служіння](https://www.youtube.com/SKEEMANSCHURCH/live)"}_']),
+                              f'Онлайн трансляцію дивись на цьому каналі або в {"[YouTube](https://www.youtube.com/SKEEMANSCHURCH/live)"}']),
                     disable_web_page_preview=True,
                     parse_mode=ParseMode.MARKDOWN_V2
     )
