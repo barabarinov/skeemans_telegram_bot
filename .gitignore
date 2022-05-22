@@ -6,4 +6,3 @@ bin/*
 include/*
 lib/*
 pyvenv.cfg
-models/

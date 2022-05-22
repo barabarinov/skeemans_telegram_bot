@@ -64,10 +64,13 @@ def pray_request(update: Update, context: CallbackContext):
 
 def service_schedule(update: Update, context: CallbackContext):
     update.message.reply_text(
-                    '\n'.join(['_13:00 \- зібрання в церкві_',
-                              f'Онлайн трансляцію дивись на цьому каналі або в {"[YouTube](https://www.youtube.com/SKEEMANSCHURCH/live)"}']),
-                    disable_web_page_preview=True,
+                    '\n\n'.join(['_13:00 \- зібрання в церкві_',
+                               '_Київ, вул\.Стеценка 30, лінія 4_']),
                     parse_mode=ParseMode.MARKDOWN_V2
     )
-    update.message.reply_text('_Київ, вул\.Стеценка 30, лінія 4_', parse_mode=ParseMode.MARKDOWN_V2)
     update.message.reply_location(latitude=50.496194103883155, longitude=30.372488286210967)
+    update.message.reply_text(
+        text=(f'Онлайн трансляцію дивись на цьому каналі або в '
+              f'*{"[YouTube](https://www.youtube.com/SKEEMANSCHURCH/live)"}*'),
+        disable_web_page_preview=True,
+        parse_mode=ParseMode.MARKDOWN_V2)
