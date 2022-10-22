@@ -6,3 +6,7 @@ bin/*
 include/*
 lib/*
 pyvenv.cfg
+app/db.py
+app/create_db.py
+app/models.py
+app/handlers/registration.py
