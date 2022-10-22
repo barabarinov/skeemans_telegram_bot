@@ -13,7 +13,11 @@ reply_keyboard_menu = [['Служіння в Бучі 🔰', 'Церква пі�
                        ['Підтримати (Donate) ✊🏼', 'Молитовна потреба 🙏🏻'],
                        ['Недільне служіння 💒', 'Cлужіння LIVE 🔴']]
 
-reply_keyboard_main = ReplyKeyboardMarkup(reply_keyboard_menu, one_time_keyboard=False)
+reply_keyboard_main = ReplyKeyboardMarkup(
+    reply_keyboard_menu,
+    one_time_keyboard=False,
+    resize_keyboard=True
+)
 
 reply_keboard_pray = [[InlineKeyboardButton('Написати 🔗', url=PRAY_LINK)]]
 reply_keboard_praylink = InlineKeyboardMarkup(reply_keboard_pray)
@@ -24,7 +28,9 @@ reply_keboard_onlinelink = InlineKeyboardMarkup(reply_keboard_online)
 
 def start(update: Update, context: CallbackContext):
     update.message.reply_text(
-        text_hello, reply_markup=reply_keyboard_main, parse_mode=ParseMode.MARKDOWN
+        text_hello,
+        reply_markup=reply_keyboard_main,
+        parse_mode=ParseMode.MARKDOWN,
     )
 
 
@@ -43,7 +49,10 @@ def online(update: Update, context: CallbackContext):
 
 
 def church_in_wartime(update: Update, context: CallbackContext):
-    update.message.reply_text(f'*ЗА КОЖНОЮ ДОБРОЮ СПРАВОЮ СТОЯТЬ ЛЮДИ!*\n🙏🏼🇺🇦\n', parse_mode=ParseMode.MARKDOWN)
+    update.message.reply_text(
+        f'*ЗА КОЖНОЮ ДОБРОЮ СПРАВОЮ СТОЯТЬ ЛЮДИ!*\n🙏🏼🇺🇦\n',
+        parse_mode=ParseMode.MARKDOWN
+    )
     update.message.reply_photo(
         caption=text_wartime,
         photo=open('pics/web_war.png', 'rb'),
